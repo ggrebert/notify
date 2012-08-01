@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta name="description" content="Notify - jQuery Plugin" />
+        <meta name="author" content="Geoffrey GREBERT <geoffrey.grebert@gmail.com>" />
+        <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/ui-lightness/jquery-ui.css" />
+        <title>Notify - jQuery Plugin</title>
+        <style type="text/css">
+            body {
+                background-color: #F1F1F1;
+                font-family: arial,sans-serif;
+                font-size: 12px;
+            }
+            header {
+                margin: 0 30px;
+            }
+            footer {
+                text-align: center;
+            }
+            span.warning {
+                color: red;
+            }
+            span.todo {
+                background: yellow;
+            }
+            #content {
+                border-radius: 8px 8px 0 0;
+                box-shadow: 0 0 4px #444444;
+                background-color: #FFFFFF;
+                margin: 10px 10px 0;
+                padding: 10px 20px;
+            }
+            .clear {
+                clear: both;
+            }
+            .options-list , .methods-list, .events-list {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+            }
+            .options-list > li, .methods-list > li, .events-list > li {
+                background: url("http://ui-dev.jquery.com/images/bg-demo-docs-param.gif") repeat-x scroll 0 0 transparent;
+                clear: left;
+                float: left;
+                width: 100%;
+            }
+            .options-list > li > .header, .methods-list > li > .header, .events-list > li > .header {
+                border-top: 1px solid #E6E6E6;
+                float: left;
+                padding: 10px 0 8px;
+                width: 100%;
+            }
+            .options-list > li > .header > h3, .methods-list > li > .header > h3, .events-list > li > .header > h3 {
+                background: url("http://ui-dev.jquery.com/images/demo-spindown-closed.gif") no-repeat scroll left center transparent;
+                cursor: pointer;
+                float: left;
+                line-height: 1;
+                margin: 0 0 0 10px;
+                padding: 0 0 0 15px;
+                width: 30%;
+            }
+            .options-list > li > .header-open > h3, .methods-list > li > .header-open > h3, .events-list > li > .header-open > h3 {
+                background: url("http://ui-dev.jquery.com/images/demo-spindown-open.gif") no-repeat scroll left center transparent;
+            }
+            .options-list > li > .header > dl, .methods-list > li > .header > dl, .events-list > li > .header > dl {
+                float: right;
+                width: 65%;
+            }
+            .options-list > li > .header > dl dt, .methods-list > li > .header > dl dt, .events-list > li > .header > dl dt {
+                color: #888888;
+                padding-right: 0.5em;
+                float: left;
+            }
+            .options-list > li > .header > dl dt:after, .methods-list > li > .header > dl dt:after, .events-list > li > .header > dl dt:after {
+                content: " : ";
+            }
+            .options-list > li > .header > dl dd, .methods-list > li > .header > dl dd , .events-list > li > .header > dl dd {
+                margin: 0;
+                padding-right: 15px;
+                width: 35%;
+                float: left;
+            }
+            .details {
+                margin: 0 0 20px 20px;
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="content">
+            <header><h1>jQuery Notification Plugin</h1></header>
+            <p>Notify is a jQuery plugin that makes it easy to create <em>alert</em>, <em>success</em>, <em>error</em>, <em>warning</em>, <em>information</em>, messages as an alternative the standard alert dialog. Each modal notification is added to a queue.</p>
+            <p>The notifications can be positioned at the top - topLeft - topRight - center - bottom - bottomLeft - bottomRight</p>
+            <p>There are lots of other options in the API to customise the text, speed and much more.</p>
+            <p>It also has various callbacks for opening and closing the notifications.</p>
+            <p>You can also easily create your own template or layout</p>
+            <p>This plugin require jQuery, jQuery UI core and jQuery UI widget</p>
+            <div id="not1">
+                <h3>Inline notification</h3>
+                <pre>$('#not1').notify();</pre>
+            </div>
+            <h2>Documentation</h2>
+            <div class="tab">
+                <ul>
+                    <li><a href="#doc-overview">Overview</a></li>
+                    <li><a href="#doc-options">Options</a></li>
+                    <li><a href="#doc-events">Events</a></li>
+                    <li><a href="#doc-methods">Methods</a></li>
+                    <li><a href="#doc-theming">Theming</a></li>
+                    <li><a href="#doc-compatibility">Compatibility</a></li>
+                </ul>
+                <div id="doc-overview">
+                    
+                </div>
+                <div id="doc-options">
+                    <ul class="options-list">
+                        <li>
+                            <div class="header">
+                                <h3>closeWith</h3>
+                                <dl>
+                                    <dt>Type</dt>
+                                    <dd>Array</dd>
+                                    <dt>Default</dt>
+                                    <dd>['click']</dd>
+                                </dl>
+                            </div>
+                            <div class="details">
+                                <div class="description">
+                                    <p>Event to close the notification</p>
+                                </div>
+                                <div class="examples">
+                                    <h4>Code examples</h4>
+                                    <dl>
+                                        <dt>Initialize a notification with the <code>closeWidth</code> option specified.</dt>
+                                        <dd><pre>$.notify({closeWidth:['button']});</pre></dd>
+                                        <dt>Get or set the <code>closeWidth</code>, after init.</dt>
+                                        <dd><span class="todo">This method is not yet implemented</span></dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="header">
+                                <h3>debug</h3>
+                                <dl>
+                                    <dt>Type</dt>
+                                    <dd>Boolean</dd>
+                                    <dt>Default</dt>
+                                    <dd>false</dd>
+                                </dl>
+                            </div>
+                            <div class="details">
+                                <div class="description">
+                                    <p>
+                                        Active (true) or unactive (false) de debug output.<br />
+                                        <span class="warning">You must use firebug.</span>
+                                    </p>
+                                </div>
+                                <div class="examples">
+                                    <h4>Code examples</h4>
+                                    <dl>
+                                        <dt>Initialize a notification with the <code>debug</code> option specified.</dt>
+                                        <dd><pre>$.notify({debug:true});</pre></dd>
+                                        <dt>Get or set the <code>debug</code>, after init.</dt>
+                                        <dd><pre>$.notify("option", "debug", true);</pre></dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="header">
+                                <h3>force</h3>
+                                <dl>
+                                    <dt>Type</dt>
+                                    <dd>Boolean</dd>
+                                    <dt>Default</dt>
+                                    <dd>false</dd>
+                                </dl>
+                            </div>
+                            <div class="details">
+                                <div class="description"><p>Put the notification on the top of the queue</p></div>
+                                <div class="examples">
+                                    <h4>Code examples</h4>
+                                    <dl>
+                                        <dt>Initialize a notification with the <code>force</code> option specified.</dt>
+                                        <dd><pre>$.notify({force:true});</pre></dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="header">
+                                <h3>layout</h3>
+                                <dl>
+                                    <dt>Type</dt>
+                                    <dd>String</dd>
+                                    <dt>Default</dt>
+                                    <dd>'base'</dd>
+                                </dl>
+                            </div>
+                            <div class="details">
+                                <div class="description">
+                                    <p>The layout name you want to choose for your notification</p>
+                                    <p>You can easily create your own layout (see Theming tab)</p>
+                                </div>
+                                <div class="examples">
+                                    <h4>Code examples</h4>
+                                    <dl>
+                                        <dt>Initialize a notification with the <code>layout</code> option specified.</dt>
+                                        <dd><pre>$.notify({layout:'topRight'});</pre></dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="header">
+                                <h3>modal</h3>
+                                <dl>
+                                    <dt>Type</dt>
+                                    <dd>Boolean</dd>
+                                    <dt>Default</dt>
+                                    <dd>false</dd>
+                                </dl>
+                            </div>
+                            <div class="details">
+                                <div class="description">
+                                    <p>
+                                        Active (true) or unactive (false) de debug output.<br />
+                                        <span class="warning">You must use firebug.</span>
+                                    </p>
+                                </div>
+                                <div class="examples">
+                                    <h4>Code examples</h4>
+                                    <dl>
+                                        <dt>Initialize a notification with the <code>debug</code> option specified.</dt>
+                                        <dd><pre>$.notify({debug:true});</pre></dd>
+                                        <dt>Get or set the <code>debug</code>, after init.</dt>
+                                        <dd><pre>$.notify("option", "debug", true);</pre></dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="header">
+                                <h3>show</h3>
+                                <dl>
+                                    <dt>Type</dt>
+                                    <dd>Boolean</dd>
+                                    <dt>Default</dt>
+                                    <dd>true</dd>
+                                </dl>
+                            </div>
+                            <div class="details">
+                                <div class="description">
+                                    <p>Open the notification</p>
+                                </div>
+                                <div class="examples">
+                                    <h4>Code examples</h4>
+                                    <dl>
+                                        <dt>Initialize a notification with the <code>force</code> option specified.</dt>
+                                        <dd><pre>$.notify({show:false});</pre></dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="header">
+                                <h3>text</h3>
+                                <dl>
+                                    <dt>Type</dt>
+                                    <dd>String</dd>
+                                    <dt>Default</dt>
+                                    <dd>""</dd>
+                                </dl>
+                            </div>
+                            <div class="details">
+                                <div class="description">
+                                    <p>Content of the notification</p>
+                                </div>
+                                <div class="examples">
+                                    <h4>Code examples</h4>
+                                    <dl>
+                                        <dt>Initialize a notification with the <code>text</code> option specified.</dt>
+                                        <dd><pre>$.notify({text:"Hello World !"});</pre></dd>
+                                        <dt>Get or set the <code>text</code>, after init.</dt>
+                                        <dd><pre>$.notify("option", "text", "Hello World !");</pre></dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="header">
+                                <h3>type</h3>
+                                <dl>
+                                    <dt>Type</dt>
+                                    <dd>String</dd>
+                                    <dt>Default</dt>
+                                    <dd>"alert"</dd>
+                                </dl>
+                            </div>
+                            <div class="details">
+                                <div class="description">
+                                    <p>
+                                        Type of the notification,<br />
+                                        possible values : alert, warning, information, error, success
+                                    </p>
+                                </div>
+                                <div class="examples">
+                                    <h4>Code examples</h4>
+                                    <dl>
+                                        <dt>Initialize a notification with the <code>type</code> option specified.</dt>
+                                        <dd><pre>$.notify({type:"warning"});</pre></dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="clear"></div>
+                </div>
+                <div id="doc-events">
+                    <ul class="events-list">
+                        <li>
+                            <div class="header">
+                                <h3>beforeShow</h3>
+                                <dl>
+                                    <dt>Type</dt>
+                                    <dd>notifybeforeshow</dd>
+                                </dl>
+                            </div>
+                            <div class="details">
+                                <div class="description">
+                                    <p>This event is triggered just before the notification is displayed</p>
+                                </div>
+                                <div class="examples">
+                                    <h4>Code examples</h4>
+                                    <dl>
+                                        <dt>Supply a callback function to handle the <code>beforeShow</code> event as an init option.</dt>
+                                        <dd><pre>$.notify({ beforeShow: function(event, ui) { ... } });</pre></dd>
+                                        <dt>Bind to the <code>beforeShow</code> event by type: <code>notifybeforeshow</code>.</dt>
+                                        <dd><pre>$(".selector").bind("notifybeforeshow", function(event, ui) { ... });</pre></dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="header">
+                                <h3>afterShow</h3>
+                                <dl>
+                                    <dt>Type</dt>
+                                    <dd>notifyaftershow</dd>
+                                </dl>
+                            </div>
+                            <div class="details">
+                                <div class="description">
+                                    <p>This event is triggered just after the notification is displayed</p>
+                                </div>
+                                <div class="examples">
+                                    <h4>Code examples</h4>
+                                    <dl>
+                                        <dt>Supply a callback function to handle the <code>afterShow</code> event as an init option.</dt>
+                                        <dd><pre>$.notify({ afterShow: function(event, ui) { ... } });</pre></dd>
+                                        <dt>Bind to the <code>afterShow</code> event by type: <code>notifyaftershow</code>.</dt>
+                                        <dd><pre>$(".selector").bind("notifyaftershow", function(event, ui) { ... });</pre></dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="header">
+                                <h3>beforeClose</h3>
+                                <dl>
+                                    <dt>Type</dt>
+                                    <dd>notifybeforeclose</dd>
+                                </dl>
+                            </div>
+                            <div class="details">
+                                <div class="description">
+                                    <p>This event is triggered just after the notification is closed</p>
+                                </div>
+                                <div class="examples">
+                                    <h4>Code examples</h4>
+                                    <dl>
+                                        <dt>Supply a callback function to handle the <code>beforeClose</code> event as an init option.</dt>
+                                        <dd><pre>$.notify({ beforeClose: function(event, ui) { ... } });</pre></dd>
+                                        <dt>Bind to the <code>beforeClose</code> event by type: <code>notifybeforeclose</code>.</dt>
+                                        <dd><pre>$(".selector").bind("notifybeforeclose", function(event, ui) { ... });</pre></dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="header">
+                                <h3>afterClose</h3>
+                                <dl>
+                                    <dt>Type</dt>
+                                    <dd>notifyafterclose</dd>
+                                </dl>
+                            </div>
+                            <div class="details">
+                                <div class="description">
+                                    <p>This event is triggered just after the notification is closed</p>
+                                </div>
+                                <div class="examples">
+                                    <h4>Code examples</h4>
+                                    <dl>
+                                        <dt>Supply a callback function to handle the <code>afterClose</code> event as an init option.</dt>
+                                        <dd><pre>$.notify({ afterClose: function(event, ui) { ... } });</pre></dd>
+                                        <dt>Bind to the <code>afterClose</code> event by type: <code>notifyafterclose</code>.</dt>
+                                        <dd><pre>$(".selector").bind("notifyafterclose", function(event, ui) { ... });</pre></dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="clear"></div>
+                </div>
+                <div id="doc-methods">
+                    <ul class="methods-list">
+                        <li>
+                            <div class="header">
+                                <h3>inWaitingList</h3>
+                                <dl>
+                                    <dt>Signature</dt>
+                                    <dd>.notify( "inWaitingList" ) : Boolean</dd>
+                                </dl>
+                            </div>
+                            <div class="details">
+                                <div class="description">
+                                    <p>Return true if the notification is in the waiting list. This method is available only with modal notifications.</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="header">
+                                <h3>open</h3>
+                                <dl>
+                                    <dt>Signature</dt>
+                                    <dd>.notify( "open" )</dd>
+                                </dl>
+                            </div>
+                            <div class="details">
+                                <div class="description">
+                                    <p>Show the notification. Only possible with <code>show: false</code>.</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="header">
+                                <h3>close</h3>
+                                <dl>
+                                    <dt>Signature</dt>
+                                    <dd>.notify( "close" )</dd>
+                                </dl>
+                            </div>
+                            <div class="details">
+                                <div class="description">
+                                    <p>Close the notification.</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="clear"></div>
+                </div>
+                <div id="doc-theming">
+                    <h2>Sample markup</h2>
+                    <h4>Inline layout</h4>
+                    <pre>
+&lt;div class="noty-block noty-layout-inline noty-type-alert"&gt;
+    &lt;div class="noty-wrapper"&gt;
+        &lt;div class="noty-content"&gt;Hello World&lt;/div&gt;
+        &lt;div class="noty-close"&gt;&lt;/div&gt;
+        &lt;div class="noty-buttons"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+                    </pre>
+                    <h4>other layout</h4>
+                    <pre>
+&lt;ul id="noty-container-topRight"&gt;
+    &lt;li&gt;
+        &lt;div class="noty-block noty-layout-topRight noty-type-error"&gt;
+            &lt;div class="noty-wrapper"&gt;
+                &lt;div class="noty-content"&gt;Hello World&lt;/div&gt;
+                &lt;div class="noty-close"&gt;&lt;/div&gt;
+                &lt;div class="noty-buttons"&gt;&lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;
+                    </pre>
+                </div>
+                <div id="doc-compatibility">
+                    <ul>
+                        <li>
+                            <h3>jQuery Version</h3>
+                            <p>Works with 1.4 and above. Tested on :</p>
+                            <ul>
+                                <li>1.4</li>
+                                <li>1.5</li>
+                                <li>1.6</li>
+                                <li>1.7</li>
+                                <li>1.8</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <h3>jQuery UI Version</h3>
+                            <p>
+                                Works width 1.8 and above
+                            </p>
+                        </li>
+                        <li>
+                            <h3>Browsers</h3>
+                            <ul>
+                                <li>
+                                    <h4>Firefox</h4>
+                                    <p>Tested with 14</p>
+                                </li>
+                                <li>
+                                    <h4>IE</h4>
+                                    <ul>
+                                        <li>
+                                            <h5>IE7</h5>
+                                            <p>Works fine except css :</p>
+                                            <ul>
+                                                <li>Bug width z-index</li>
+                                                <li>Bug width base theme : no close button</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <p>&copy; Copyright  by <a href="http://geoffrey-grebert.com">Geoffrey Grebert</a></p>
+        </footer>
+        <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script> -->
+        <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script> -->
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.8rc1.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="libs/jquery.ui.notify.js"></script>
+        <!-- LAYOUTS -->
+        <script type="text/javascript" src="libs/layouts/bottom.js"></script>
+        <script type="text/javascript" src="libs/layouts/bottomLeft.js"></script>
+        <script type="text/javascript" src="libs/layouts/bottomRight.js"></script>
+        <script type="text/javascript" src="libs/layouts/center.js"></script>
+        <script type="text/javascript" src="libs/layouts/top.js"></script>
+        <script type="text/javascript" src="libs/layouts/topLeft.js"></script>
+        <script type="text/javascript" src="libs/layouts/topRight.js"></script>
+        <!-- THEMES -->
+        <script type="text/javascript" src="libs/templates/themeRoller.js"></script>
+        <script type="text/javascript">
+        /* <![CDATA[ */
+        $(document).ready(function(){
+            $('.options-list > li > .header > h3, .methods-list > li > .header > h3, .events-list > li > .header > h3').click(function(){
+                if ( $(this).parent().hasClass('header-open') ) {
+                    $(this).parent().removeClass('header-open');
+                } else {
+                    $(this).parent().addClass('header-open');
+                }
+                $(this).parents('li').find('> .details').slideToggle();
+            });
+            $('.tab').tabs();
+            $('#not1').notify({
+                type: 'warning',
+                closeWith: ['button']
+            });
+            $.notify({
+                text: "topRight !",
+                type: 'error',
+                closeWith: ['button', 'click'],
+                layout: 'topRight'
+            });
+        });
+        /* ]]> */
+        </script>
+    </body>
+</html>
