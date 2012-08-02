@@ -337,7 +337,7 @@
                     }
                 }
                 
-                $animateSelector = $this;
+                var $animateSelector = $this;
                 
                 if (self.options.layout.container.tag && self.options.layout.parent.tag) {
                     var $parentDom = $('<' + self.options.layout.parent.tag + '></' + self.options.layout.parent.tag + '>');
@@ -352,7 +352,7 @@
                         $parentDom.appendTo('#noty-container-' + self.options.layout.name);
                     }
                     
-                    $this.appendTo($parentDom)
+                    $this.appendTo($parentDom);
                     
                     $animateSelector = $animateSelector.parent();
                 }
@@ -408,7 +408,7 @@
             try {
                 self._trigger('beforeClose', null, self._ui());
                 
-                $animateSelector = $this;
+                var $animateSelector = $this;
                 if (self.options.layout.container.tag && self.options.layout.parent.tag) {
                     $animateSelector = $animateSelector.parent();
                 }
@@ -487,7 +487,7 @@
                 $this
                     .addClass('noty-block')
                     .addClass('noty-layout-' + self.options.layout.name)
-                    .addClass('noty-type-' + self.options.type)
+                    .addClass('noty-type-' + self.options.type);
                 
                 if (self.options.text == '') {
                     self.options.text = saveText;
@@ -516,13 +516,10 @@
         },
         
         _ui: function() {
-            var self = this;
-            var $this = $(this);
-            
             return {
-                index: self._index,
-                content: self._$content
-            }
+                index: this._index,
+                content: this._$content
+            };
         },
         
         _initTimeout: function (timeout) {
