@@ -1,7 +1,7 @@
 /**
  * @summary jQuery GG Notify
- * @description Show notification like Ubuntu
- * @version 1.0
+ * @description Show notification like Ubuntu or Growl
+ * @version 1.1
  * @file jquery.ui.notify.js
  * @author Geoffrey GREBERT <geoffrey.grebert@gmail.com>
  * @link http://geoffrey-grebert.com
@@ -27,21 +27,24 @@
  * 
  */
 
-(function($) {
+/*jshint devel:true, jquery:true, unused:false */
+
+
+(function ($) {
+    "use strict";
     
-    var index = 0;
-    
-    var notyId = 0;
-    
-    var modalQueue = [];
+    var
+        index = 0,
+        notyId = 0,
+        modalQueue = [];
     
     function getNextIndex() {
         return ++index;
-    };
+    }
     
     function getNextNotyId() {
         return ++notyId;
-    };
+    }
     
     $.widget("gg.notify", {
         
@@ -129,18 +132,20 @@
             buttons: [],
             
             // callback
-            beforeShow: function(event, ui){},
+            beforeShow: function (event, ui) {},
             
-            afterShow: function(event, ui){},
+            afterShow: function (event, ui) {},
             
-            beforeClose: function(event, ui){},
+            beforeClose: function (event, ui) {},
             
-            afterClose: function(event, ui){}
+            afterClose: function (event, ui) {}
         },
         
-        inWaitingList: function() {
-            var self = this;
-            for(var i = 0; i < modalQueue.length; i++) {
+        inWaitingList: function () {
+            var
+                self = this,
+                i;
+            for (i = 0; i < modalQueue.length; i++) {
                 if (modalQueue[i] === self) {
                     return true;
                 }
@@ -192,8 +197,8 @@
                     }
                 },
                 callback: {
-                    initPlugin: function() {},
-                    initBlock: function() {
+                    initPlugin: function () {},
+                    initBlock: function () {
                         var $this = this.element;
                         
                         if (this.options.modal) {
@@ -260,8 +265,8 @@
                                     color: '#FFF'
                                 });
                                 break;
-                            case 'alert':
-                            case 'notification':
+                            //case 'alert':
+                            //case 'notification':
                             default:
                                 $this.css({
                                     backgroundColor: '#FFF',
@@ -269,12 +274,12 @@
                                     color: '#444'
                                 });
                                 break;
-                                break;
                         }
                     },
-                    open: function() {
-                        var $this = this.element;
-                        var $close = $this.find('> .noty-wrapper > .noty-close');
+                    open: function () {
+                        var
+                            $this = this.element,
+                            $close = $this.find('> .noty-wrapper > .noty-close');
                         
                         $close
                             .hide()
@@ -289,10 +294,10 @@
                             });
                         
                         $this.bind({
-                            mouseenter: function() {
+                            mouseenter: function () {
                                 $close.fadeIn();
                             },
-                            mouseleave: function() {
+                            mouseleave: function () {
                                 $close.fadeOut();
                             }
                         });
@@ -314,17 +319,18 @@
                     css: {}
                 },
                 callback: {
-                    initPlugin: function() {},
-                    initBlock: function() {},
-                    open: function() {},
-                    close: function() {}
+                    initPlugin: function () {},
+                    initBlock: function () {},
+                    open: function () {},
+                    close: function () {}
                 }
             }
         },
         
         open: function() {
-            var self = this;
-            var $this = this.element;
+            var
+                self = this,
+                $this = this.element;
             
             try {
                 // temporisation des notification modal
@@ -389,7 +395,7 @@
                 
                 return self;
             } catch (err) {
-                if(err != "error") {
+                if(err !== "error") {
                     if (self.options.debug) {
                         console.error("Error gg.notify : unknow error %s", err);
                     }
@@ -447,7 +453,7 @@
                 
                 return self;
             } catch (err) {
-                if(err != "error") {
+                if(err !== "error") {
                     if (self.options.debug) {
                         console.error("Error gg.notify : unknow error %s", err);
                     }
@@ -489,7 +495,7 @@
                     .addClass('noty-layout-' + self.options.layout.name)
                     .addClass('noty-type-' + self.options.type);
                 
-                if (self.options.text == '') {
+                if (self.options.text === '') {
                     self.options.text = saveText;
                 } else {
                     self._$content.html(self.options.text);
@@ -503,7 +509,7 @@
                 
                 return self;
             } catch (err) {
-                if(err != "error") {
+                if(err !== "error") {
                     if (self.options.debug) {
                         console.error("Error gg.notify : unknow error %s", err);
                     }
@@ -524,7 +530,7 @@
         
         _initTimeout: function (timeout) {
             var self = this;
-            if (timeout == undefined){
+            if (timeout === undefined){
                 timeout = self.options.timeout; 
             }
             if (timeout) {
@@ -626,7 +632,7 @@
                 self._$close.bind('click', function(){
                     self.close();
                 });
-            } else if ($.inArray('button', self.options.closeWith) == -1) {
+            } else if ($.inArray('button', self.options.closeWith) === -1) {
                 self._$close.remove();
             }
             
@@ -642,20 +648,19 @@
                         return this.options[key].name;
                     }
                     return this;
-                    break;
                 case 'timeout':
-                    if (value != undefined) {
+                    if (value !== undefined) {
                         self._initTimeout(value);
                     }
                     break;
                 case 'text':
-                    if (value != undefined) {
+                    if (value !== undefined) {
                         self.options.text = value;
                         self._$content.html(value);
                     }
                     break;
                 case 'type':
-                    if (value != undefined) {
+                    if (value !== undefined) {
                         self.options.type = value;
                         if (self.options.theme.callback.initBlock) {
                             self.options.theme.callback.initBlock.apply(self);
